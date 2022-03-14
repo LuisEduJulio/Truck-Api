@@ -18,12 +18,6 @@ namespace Truck.IOC
             services
                .AddHttpClient();
 
-            services.AddStackExchangeRedisCache(options =>
-            {
-                options.InstanceName = "redis";
-                options.Configuration = "localhost:6379";
-            });
-
             services
                 .AddControllers();
 

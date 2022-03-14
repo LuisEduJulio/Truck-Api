@@ -38,7 +38,6 @@ namespace Truck.Application.Handlers
                 throw new CustomException("Truck does not exist!");
             }
 
-
             truck.DateModel = request.DateModel ?? truck.DateModel;
             truck.DateFabric = request.DateFabric ?? truck.DateFabric;
             truck.DateUpdated = request.DateUpdated;

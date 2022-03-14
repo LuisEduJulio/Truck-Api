@@ -9,6 +9,6 @@ namespace Truck.Domain.Entities
         public DateTime DateModel { get; set; }
         public string Color { get; set; }
         public string Chassis { get; set; }
-        public EModelTruck EModelTruck { get; set; }     
+        public EModelTruck EModelTruck { get; set; }
     }
 }

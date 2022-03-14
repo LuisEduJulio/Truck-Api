@@ -35,7 +35,7 @@ namespace Truck.UnitTest.Domain.Entities
 
         public TruckEntity TruckEntityMock()
         {
-            var result =  _fixture.Create<TruckEntity>();
+            var result = _fixture.Create<TruckEntity>();
 
             return result;
         }
