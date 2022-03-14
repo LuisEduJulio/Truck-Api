@@ -19,3 +19,10 @@ appsettings.json
 ```
 Trocar o DATABASE pelo nome do seu Banco, USER para o seu usuário e PASSWORD para a sua senha.
 
+
+Migrations
+```
+Abrir o Package Manager Console 
+Rodar o comando Update-Database
+
+```
