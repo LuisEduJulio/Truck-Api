@@ -21,16 +21,6 @@ namespace Truck.IOC
             services
                 .AddControllers();
 
-            services.AddCors(option =>
-            {
-                option
-                .AddPolicy("AllowSpecificOrigin",
-                    policy => policy
-                        .WithOrigins("http://localhost:8081/")
-                        .AllowAnyMethod()
-                        .AllowAnyHeader());
-            });
-
             services.AddAutoMapperConfiguration();
 
             services
@@ -47,9 +37,6 @@ namespace Truck.IOC
 
             services
                 .AddMediatRSetup();
-
-            services
-                .AddMvc();
 
             services.AddSwaggerGen(c =>
             {
