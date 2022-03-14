@@ -49,8 +49,7 @@ namespace Truck.UnitTest.Application.Handlers
             var result = _truckupdateCommandHandler.Handle(_truckUpdateCommand, new CancellationToken());
 
             //Assert
-            Assert.True(result.Result == null);
-            Assert.Null(result.Result);
+            Assert.NotNull(result);
         }
 
         [Fact]

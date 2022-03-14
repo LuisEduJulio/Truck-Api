@@ -31,7 +31,20 @@ namespace Truck.Application.Handlers
                 throw new CustomException(validation.Errors.First().ErrorMessage);
             }
 
-            var truck = _mapper.Map<TruckEntity>(request);
+            var truck = await _truckRepository.GetIdAsync(request.Id);
+
+            if (truck is null)
+            {
+                throw new CustomException("Truck does not exist!");
+            }
+
+
+            truck.DateModel = request.DateModel ?? truck.DateModel;
+            truck.DateFabric = request.DateFabric ?? truck.DateFabric;
+            truck.DateUpdated = request.DateUpdated;
+            truck.Chassis = request.Chassis ?? truck.Chassis;
+            truck.EModelTruck = request.EModelTruck ?? truck.EModelTruck;
+            truck.Color = request.Color ?? truck.Color;
 
             return await _truckRepository.UpdateAsync(truck);
         }

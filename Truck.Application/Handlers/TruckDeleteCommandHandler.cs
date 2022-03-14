@@ -29,6 +29,11 @@ namespace Truck.Application.Handlers
 
             var truck = await _truckRepository.GetIdAsync(request.Id);
 
+            if (truck is null)
+            {
+                throw new CustomException("Truck does not exist!");
+            }
+
             await _truckRepository.DeleteAsync(truck);
 
             return Unit.Value;

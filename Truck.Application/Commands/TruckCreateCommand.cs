@@ -7,6 +7,12 @@ namespace Truck.Application.Commands
 {
     public class TruckCreateCommand : IRequest<TruckEntity>
     {
+        public TruckCreateCommand()
+        {
+            DateCreation = DateTime.Now;
+        }
+
+        public DateTime DateCreation { get; set; }
         public DateTime DateFabric { get; set; }
         public DateTime DateModel { get; set; }
         public string Color { get; set; }

@@ -7,16 +7,17 @@ namespace Truck.Application.Commands
 {
     public class TruckUpdateCommand : IRequest<TruckEntity>
     {
-        public TruckUpdateCommand(int id)
+        public TruckUpdateCommand()
         {
-            Id = id;
+            DateUpdated = DateTime.Now;
         }
 
         public int Id { get; set; }
-        public DateTime DateFabric { get; set; }
-        public DateTime DateModel { get; set; }
+        public DateTime DateUpdated { get; set; }
+        public DateTime? DateFabric { get; set; }
+        public DateTime? DateModel { get; set; }
         public string Color { get; set; }
         public string Chassis { get; set; }
-        public EModelTruck EModelTruck { get; set; }
+        public EModelTruck? EModelTruck { get; set; }
     }
 }

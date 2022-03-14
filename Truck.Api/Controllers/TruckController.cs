@@ -31,7 +31,7 @@ namespace Truck.Api.Controllers
         }
 
         [HttpGet("GetById/{Id}")]
-        public async Task<IActionResult> GetByIdTruckAsync([FromQuery] int Id)
+        public async Task<IActionResult> GetByIdTruckAsync(int Id)
         {
             var truck = await _mediator.Send(new GetTruckByIdQuery(Id));
 
@@ -46,18 +46,26 @@ namespace Truck.Api.Controllers
             return Ok(truck);
         }
 
-        [HttpGet("UpdateTruck")]
-        public async Task<IActionResult> PutTruckAsync([FromBody] TruckUpdateCommand truckUpdateCommand)
+        [HttpPut("UpdateTruck")]
+        public async Task<IActionResult> PutTruckAsync(TruckUpdateCommand truckUpdateCommand)
         {
-            var truck = await _mediator.Send(truckUpdateCommand);
+            var truck = await _mediator.Send(new TruckUpdateCommand() 
+            { 
+                Chassis = truckUpdateCommand.Chassis,
+                Color = truckUpdateCommand.Color,
+                DateFabric = truckUpdateCommand.DateFabric,
+                DateModel = truckUpdateCommand.DateModel,
+                EModelTruck = truckUpdateCommand.EModelTruck,
+                Id = truckUpdateCommand.Id
+            });
 
             return Ok(truck);
         }
 
-        [HttpGet("DeleteTruck")]
-        public async Task<IActionResult> DeleteTruckAsync([FromBody] TruckDeleteCommand truckDeleteCommand)
+        [HttpDelete("DeleteTruck/{Id}")]
+        public async Task<IActionResult> DeleteTruckAsync(int Id)
         {
-            var truck = await _mediator.Send(truckDeleteCommand);
+            var truck = await _mediator.Send(new TruckDeleteCommand(Id));
 
             return Ok(truck);
         }
