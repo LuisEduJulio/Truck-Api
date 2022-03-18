@@ -45,6 +45,15 @@ namespace Truck.Infraestructure.Repositories
             return truck;
         }
 
+        public async Task<int> GetAllCountAsync()
+        {
+            var truck = await _dbContext
+                  .TruckEntities
+                  .CountAsync();
+
+            return truck;
+        }
+
         public async Task<TruckEntity> GetIdAsync(int Id)
         {
             var truck = await _dbContext

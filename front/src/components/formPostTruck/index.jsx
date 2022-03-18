@@ -11,11 +11,20 @@ import {
     TreeSelect,
     Switch,
 } from 'antd';
+import { useDispatch } from "react-redux";
+
+import * as actions from '../../stores/configs/rootAction';
 
 function FormPostTruck() {
+    const dispatch = useDispatch();
     const [componentSize, setComponentSize] = useState('default');
+
     const onFormLayoutChange = (size) => {
         setComponentSize(size);
+    };
+
+    const onClearChange = () => {
+        dispatch(actions.default.modal.closeModalNewTruck());
     };
 
     return (
@@ -27,55 +36,38 @@ function FormPostTruck() {
             onValuesChange={onFormLayoutChange}
             size={componentSize}
         >
-            <Form.Item label="Form Size" name="size">
-                <Radio.Group>
-                    <Radio.Button value="small">Small</Radio.Button>
-                    <Radio.Button value="default">Default</Radio.Button>
-                    <Radio.Button value="large">Large</Radio.Button>
-                </Radio.Group>
-            </Form.Item>
-            <Form.Item label="Input">
+            <Form.Item label="Descrição">
                 <Input />
             </Form.Item>
-            <Form.Item label="Select">
+            <Form.Item label="Data de Fabricação">
+                <Input />
+            </Form.Item>
+            <Form.Item label="Data do Modelo">
+                <Input />
+            </Form.Item>
+            <Form.Item label="Cor">
+                <Input />
+            </Form.Item>
+            <Form.Item label="Chassi">
+                <Input />
+            </Form.Item>
+            <Form.Item label="Modelo">
                 <Select>
-                    <Select.Option value="demo">Demo</Select.Option>
+                    <Select.Option value="1">HM</Select.Option>
+                    <Select.Option value="1">HF</Select.Option>
                 </Select>
             </Form.Item>
-            <Form.Item label="TreeSelect">
-                <TreeSelect
-                    treeData={[
-                        { title: 'Light', value: 'light', children: [{ title: 'Bamboo', value: 'bamboo' }] },
-                    ]}
-                />
-            </Form.Item>
-            <Form.Item label="Cascader">
-                <Cascader
-                    options={[
-                        {
-                            value: 'zhejiang',
-                            label: 'Zhejiang',
-                            children: [
-                                {
-                                    value: 'hangzhou',
-                                    label: 'Hangzhou',
-                                },
-                            ],
-                        },
-                    ]}
-                />
-            </Form.Item>
-            <Form.Item label="DatePicker">
-                <DatePicker />
-            </Form.Item>
-            <Form.Item label="InputNumber">
-                <InputNumber />
-            </Form.Item>
-            <Form.Item label="Switch" valuePropName="checked">
-                <Switch />
-            </Form.Item>
-            <Form.Item label="Button">
-                <Button>Button</Button>
+            <Form.Item>
+                <Button
+                // onClick={() => onClearChange()}
+                >
+                    Salvar
+                </Button>
+                <Button
+                    onClick={() => onClearChange()}
+                >
+                    Cancelar
+                </Button>
             </Form.Item>
         </Form>
     );

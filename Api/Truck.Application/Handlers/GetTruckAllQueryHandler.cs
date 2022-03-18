@@ -1,17 +1,16 @@
 ﻿using MediatR;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Truck.Application.dto;
 using Truck.Application.Querys;
 using Truck.Application.Validators;
-using Truck.Domain.Entities;
 using Truck.Domain.Repositories;
 using Truck.Infraestructure.Exceptions;
 
 namespace Truck.Application.Handlers
 {
-    public class GetTruckAllQueryHandler : IRequestHandler<GetTruckAllQuery, List<TruckEntity>>
+    public class GetTruckAllQueryHandler : IRequestHandler<GetTruckAllQuery, TruckPagination>
     {
         private readonly ITruckRepository _truckRepository;
 
@@ -20,7 +19,7 @@ namespace Truck.Application.Handlers
             _truckRepository = truckRepository;
         }
 
-        public async Task<List<TruckEntity>> Handle(GetTruckAllQuery request, CancellationToken cancellationToken)
+        public async Task<TruckPagination> Handle(GetTruckAllQuery request, CancellationToken cancellationToken)
         {
             var validation = await new GetTruckAllQueryValidators().ValidateAsync(request, cancellationToken);
 
@@ -36,7 +35,17 @@ namespace Truck.Application.Handlers
                 throw new CustomException("System does not have a registered truck");
             }
 
-            return trucks;
+            var count = await _truckRepository.GetAllCountAsync();
+
+            var truckPagination = new TruckPagination()
+            {
+                Count = request.Count,
+                Page = request.Page,
+                Total = count,
+                TruckEntities = trucks
+            };
+
+            return truckPagination;
         }
     }
 }

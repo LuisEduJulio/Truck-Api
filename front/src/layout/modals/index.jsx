@@ -1,14 +1,18 @@
-import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import DrawerModal from "../../components/drawerModal";
 import FormPostTruck from "../../components/formPostTruck";
 
 function Modals() {
-    const [open, setOpen] = useState(true);
+    const modalNewTruck = useSelector(state => state.modal?.modalNewTruck);
 
     return (
         <>
-            <DrawerModal open={open} props={<FormPostTruck />} title={'Novo Caminhão'} />
+            <DrawerModal
+                open={modalNewTruck}
+                props={<FormPostTruck />}
+                title={'Novo Caminhão'}
+            />
         </>
     );
 }

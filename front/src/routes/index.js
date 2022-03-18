@@ -1,4 +1,5 @@
 import { Route, Switch } from "react-router-dom";
+import Modals from "../layout/modals";
 import Navbar from "../layout/navbar";
 
 import Home from "../views/home";
@@ -12,6 +13,7 @@ function Routes() {
                 <Route exact path="/" component={Home} />
                 <Route exact path="/updatetruck/{:id}" component={UpdateTruck} />
             </Switch>
+            <Modals />
         </>
     );
 }

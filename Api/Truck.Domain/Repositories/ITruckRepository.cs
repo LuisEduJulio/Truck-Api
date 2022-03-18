@@ -12,6 +12,8 @@ namespace Truck.Domain.Repositories
 
         Task<List<TruckEntity>> GetAllAsync(int page, int count);
 
+        Task<int> GetAllCountAsync();
+
         Task<TruckEntity> UpdateAsync(TruckEntity truckEntity);
 
         Task DeleteAsync(TruckEntity truckEntity);

@@ -1,10 +1,9 @@
 ﻿using MediatR;
-using System.Collections.Generic;
-using Truck.Domain.Entities;
+using Truck.Application.dto;
 
 namespace Truck.Application.Querys
 {
-    public class GetTruckAllQuery : IRequest<List<TruckEntity>>
+    public class GetTruckAllQuery : IRequest<TruckPagination>
     {
         public GetTruckAllQuery(int page, int count)
         {

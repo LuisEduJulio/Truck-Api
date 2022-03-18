@@ -32,6 +32,11 @@ namespace Truck.IOC
                     .UseSqlServer(Configuration
                         .GetConnectionString("Connection")));
 
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyMethod().AllowAnyHeader());
+            });
+
             services
                 .RegisterRepositories();
 

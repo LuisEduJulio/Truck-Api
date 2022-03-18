@@ -1,9 +1,13 @@
 import { combineReducers } from 'redux';
 
-// import authReducer from './authenticator/authenticator.reducer';
+import getAllTruckReducer from '../modules/getAllTruck/getAllTruck.reducer';
+import deleteTruckReducer from '../modules/deleteTruck/deleteTruck.reducer';
+import modalReducer from '../modules/modal/modal.reducer';
 
 const appReducer = combineReducers({
-  // authenticator: authReducer
+  getAllTruck: getAllTruckReducer,
+  deleteTruck: deleteTruckReducer,
+  modal: modalReducer
 });
 
 const rootReducer = (state, action) => {
