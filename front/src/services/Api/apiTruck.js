@@ -23,7 +23,6 @@ export async function postTruck(object) {
   try {
     const data = await axios.post(`/Truck/CreateTruck`,
       {
-        dateCreation: object.dateCreation,
         dateFabric: object.dateFabric,
         dateModel: object.dateModel,
         color: object.color,
@@ -42,7 +41,6 @@ export async function putTruck(object) {
     const data = await axios.put(`/Truck//Truck/UpdateTruck`,
       {
         id: object.id,
-        dateCreation: object.dateCreation,
         dateFabric: object.dateFabric,
         dateModel: object.dateModel,
         color: object.color,

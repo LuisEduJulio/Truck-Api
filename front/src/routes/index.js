@@ -11,7 +11,7 @@ function Routes() {
             <Navbar />
             <Switch>
                 <Route exact path="/" component={Home} />
-                <Route exact path="/updatetruck/{:id}" component={UpdateTruck} />
+                <Route exact path="/updatetruck/:id" component={UpdateTruck} />
             </Switch>
             <Modals />
         </>

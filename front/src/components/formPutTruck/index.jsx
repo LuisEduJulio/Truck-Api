@@ -1,18 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Form,
     Input,
     Button,
     Select
 } from 'antd';
+import moment from 'moment';
 
-const { Option } = Select;
-
-function FormPostTruck({
+function FormPutTruck({
     handleChange,
     onSubmit,
     truck,
-    onClearChange
+    handleCancel
 }) {
     return (
         <Form
@@ -28,7 +27,7 @@ function FormPostTruck({
                     class="form-control"
                     placeholder="Digite o modelo"
                     type="date"
-                    value={truck?.dateFabric || ''}
+                    value={moment(truck?.dateFabric).format('YYYY-MM-DD') || ''}
                     onChange={({ target }) => handleChange("dateFabric", target.value)}
                     required={true}
                 />
@@ -38,7 +37,7 @@ function FormPostTruck({
                     class="form-control"
                     placeholder="Data a data do Modelo"
                     type="date"
-                    value={truck?.dateModel || ''}
+                    value={moment(truck?.dateModel).format('YYYY-MM-DD') || ''}
                     onChange={({ target }) => handleChange("dateModel", target.value)}
                     required={true}
                 />
@@ -64,11 +63,9 @@ function FormPostTruck({
                 />
             </Form.Item>
             <Form.Item label="Modelo">
-                <Select
-                    onChange={(value) => handleChange("eModelTruck", value)}
-                >
-                    <Option value="1">FM</Option>
-                    <Option value="2">FH</Option>
+                <Select>
+                    <Select.Option value="1">HM</Select.Option>
+                    <Select.Option value="2">HF</Select.Option>
                 </Select>
             </Form.Item>
             <Form.Item
@@ -88,7 +85,7 @@ function FormPostTruck({
                     style={{
                         width: '100%'
                     }}
-                    onClick={onClearChange}
+                    onClick={handleCancel}
                 >
                     Cancelar
                 </Button>
@@ -97,4 +94,4 @@ function FormPostTruck({
     );
 }
 
-export default FormPostTruck;
+export default FormPutTruck;

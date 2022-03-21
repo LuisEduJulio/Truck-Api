@@ -8,19 +8,33 @@ import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 
 import * as actions from '../../stores/configs/rootAction';
+import ModalDelete from '../modalDelete';
 
 
-function TableTruck({ data }) {
+function TableTruck({ data, loading }) {
     const dispatch = useDispatch();
     const history = useHistory();
 
     const [pagination, setPagination] = useState({
-        current: data.page ?? 0,
-        pageSize: data.count ?? 0,
-        total: data.total ?? 0
+        current: data.current ? data.current : 0,
+        pageSize: data.pageSize ? data.pageSize : 0,
+        total: data.total ? data.total : 0
     });
-    const [loading, setLoading] = useState(false);
+
     const [list, setList] = useState(data.truckEntities ?? []);
+    const [modalDelete, setModalDelete] = useState(false);
+    const [truck, setTruck] = useState({
+        id: 0,
+        page: 0
+    });
+
+    const handleSelectModel = (model) =>{
+        if(model === 1){
+            return 'FH'
+        }else{
+            return 'FM'
+        }
+    }
 
     const columns = [
         {
@@ -52,6 +66,12 @@ function TableTruck({ data }) {
             key: 'chassis',
         },
         {
+            title: 'Modelo',
+            dataIndex: 'eModelTruck',
+            key: 'eModelTruck',
+            render: text => <a>{handleSelectModel(text)}</a>,
+        },
+        {
             title: 'Editar',
             key: 'id',
             render: (text) => (
@@ -64,28 +84,40 @@ function TableTruck({ data }) {
             title: 'Deletar',
             key: 'id',
             render: (text) => (
-                <Space onClick={() => handleDelete(text.id)}>
+                <Space onClick={() => handleOpenDelete(text.id, data.page)}>
                     <a><DeleteOutlined /></a>
                 </Space>
             ),
         }
     ];
 
-    const handleTableChange = (current, pageSize) => {
-        var page = pageSize + 1;
-        var count = current + 1;
-        dispatch(actions.default.getAllTruck.getTruckAll(page, count));
+    const handleTableChange = (pageSize) => {
+        var count = 5;
+        dispatch(actions.default.getAllTruck.getTruckAll(pageSize, count));
     };
 
     const handleUpdatePage = (id) => {
         history.push(`/updatetruck/${id}`);
     }
 
-    const handleDelete = (id) => {
-        dispatch(actions.default.deleteTruckAction.deleteTruck(id));
+    const handleOpenDelete = (id, page) => {
+        setModalDelete(true);
+        setTruck({
+            id: id,
+            page: page
+        });
     }
 
-    return list ? (
+    const handleDelete = () => {
+        setModalDelete(false);
+        dispatch(actions.default.deleteTruckAction.deleteTruck(truck.id, truck.page));
+    }
+
+    const handleCancelDelete = () => {
+        setModalDelete(false);
+    }
+
+    return (
         <div className='table-truck-container'>
             <Table
                 columns={columns}
@@ -93,10 +125,16 @@ function TableTruck({ data }) {
                 rowKey={record => record.id}
                 pagination={pagination}
                 loading={loading}
-            // onChange={() => handleTableChange(pagination.current, pagination.pageSize)}
+                onChange={(e) => handleTableChange(e.current)}
+            />
+            <ModalDelete
+                showModal={modalDelete}
+                textDescription={'Deseja apaga o caminhão?'}
+                handleOk={() => handleDelete()}
+                handleCancel={() => handleCancelDelete()}
             />
         </div>
-    ) : null;
+    );
 }
 
 export default TableTruck;

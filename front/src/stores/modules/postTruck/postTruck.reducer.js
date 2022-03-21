@@ -1,38 +1,35 @@
-import { userTypes } from './user.actionsType';
+import { postTruckTypes } from './postTruck.actionsType';
 
 const initialState = {
     error: false,
     message: '',
     success: false,
-    loading: false,
-    user: {}
+    loading: false
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default function (state = initialState, action) {
     switch (action.type) {
-        case userTypes.USER_LOADING:
+        case postTruckTypes.TRUCK_POST_LOADING:
             return {
                 ...state,
                 loading: !action.loading
             };
-        case userTypes.USER_SUCCESS:
+        case postTruckTypes.TRUCK_POST_SUCCESS:
             return {
                 ...state,
                 loading: initialState.loading,
                 error: action.error,
                 success: action.success,
-                message: action.message,
-                user: action.user
+                message: action.message
             };
-        case userTypes.USER_ERROR:
+        case postTruckTypes.TRUCK_POST_ERROR:
             return {
                 ...state,
                 error: action.error,
                 loading: initialState.loading,
                 success: action.success,
-                message: action.message,
-                user: initialState.user
+                message: action.message
             };
         default:
             return state;

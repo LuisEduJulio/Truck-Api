@@ -1,56 +1,48 @@
-import { userTypes } from './user.actionsType';
-import * as userApi from '../../apis/userApi';
-import {
-    USER_SUCCESS_REDUCER,
-    USER_ERROR_REDUCER
-} from '../../util/messageReducer';
-import { Logout } from '../authenticator/authenticator.actions';
+import { truckGetTypes } from './getTruck.actionsType';
+import * as apiTruck from '../../../services/Api/apiTruck';
 
-export function user() {
+export function getTruckId(id) {
     return function (dispatch) {
-        dispatch(UserLoading());
-
-        userApi
-            .getUser()
+        dispatch(GetTruckLoading());
+        apiTruck
+            .getTruckId(id)
             .then((e) => {
-                dispatch(UserSuccess(
-                    USER_SUCCESS_REDUCER.ERROR,
-                    USER_SUCCESS_REDUCER.MESSAGE,
-                    USER_SUCCESS_REDUCER.SUCCESS,
-                    e.user
+                dispatch(GetTruckSuccess(
+                    false,
+                    'Sucesso',
+                    true,
+                    e
                 ));
             })
             .catch((e) => {
-                if (e.message.includes('401')) return dispatch(Logout());
-
-                dispatch(UserError(
-                    USER_ERROR_REDUCER.ERROR,
-                    USER_ERROR_REDUCER.MESSAGE,
-                    USER_ERROR_REDUCER.SUCCESS
+                dispatch(GetTruckError(
+                    true,
+                    'Erro na consulta do caminhão!',
+                    false
                 ))
             });
     };
 }
 
-export function UserLoading() {
-    return { type: userTypes.USER_LOADING };
+function GetTruckLoading() {
+    return { type: truckGetTypes.TRUCK_GET_LOADING };
 }
 
-export function UserError(error, message, success) {
+function GetTruckSuccess(error, message, success, object) {
     return {
-        type: userTypes.USER_ERROR,
+        type: truckGetTypes.TRUCK_GET_SUCCESS,
         error: error,
         message: message,
         success: success,
+        object: object
     };
 }
 
-export function UserSuccess(error, message, success, user) {
+function GetTruckError(error, message, success) {
     return {
-        type: userTypes.USER_SUCCESS,
+        type: truckGetTypes.TRUCK_GET_ERROR,
         error: error,
         message: message,
         success: success,
-        user: user
     };
 }

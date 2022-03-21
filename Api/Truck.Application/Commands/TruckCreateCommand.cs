@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using System;
 using Truck.Domain.Entities;
-using Truck.Domain.Enums;
 
 namespace Truck.Application.Commands
 {
@@ -17,6 +16,6 @@ namespace Truck.Application.Commands
         public DateTime DateModel { get; set; }
         public string Color { get; set; }
         public string Chassis { get; set; }
-        public EModelTruck EModelTruck { get; set; }
+        public int EModelTruck { get; set; }
     }
 }

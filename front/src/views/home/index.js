@@ -12,14 +12,14 @@ function Home() {
     const loading = useSelector(state => state.getAllTruck?.loading);
 
     useEffect(() => {
-        dispatch(actions.default.getAllTruck.getTruckAll(1, 20));
+        dispatch(actions.default.getAllTruck.getTruckAll(1, 5));
     }, []);
 
     return (
         <>
             {loading ?
                 null :
-                (data ? <TableTruck data={data} /> : null)}
+                (data ? <TableTruck data={data} loading={loading} /> : null)}
         </>
     );
 }

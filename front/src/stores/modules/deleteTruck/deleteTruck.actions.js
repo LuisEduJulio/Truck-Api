@@ -2,20 +2,20 @@ import { deleteTruckTypes } from './deleteTruck.actionsType';
 import { getTruckAll } from '../getAllTruck/getAllTruck.actions';
 import * as apiTruck from '../../../services/Api/apiTruck';
 
-export function deleteTruck(id) {
+export function deleteTruck(id, page) {
     return function (dispatch) {
         dispatch(deleteTruckLoading());
         apiTruck
             .deleteTruck(id)
             .then((e) => {
-                dispatch(getTruckAll(1, 5))
+                dispatch(getTruckAll(page, 5))
                 dispatch(deleteTruckSuccess(
                     false,
                     'Sucesso',
                     true
                 ));
             })
-            .catch((e) => {               
+            .catch((e) => {
                 dispatch(deleteTruckError(
                     true,
                     'Erro ao deletar o caminhão',

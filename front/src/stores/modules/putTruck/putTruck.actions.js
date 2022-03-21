@@ -1,22 +1,20 @@
-import { postTruckTypes } from './postTruck.actionsType';
+import { putTruckTypes } from './putTruck.actionsType';
 import * as apiTruck from '../../../services/Api/apiTruck';
-import { closeModalNewTruck } from '../modal/modal.actions';
 
-export function postTruck(object) {
+export function putTruck(object) {
     return function (dispatch) {
-        dispatch(PostTruckLoading());
+        dispatch(PutTruckLoading());
         apiTruck
-            .postTruck(object)
+            .putTruck(object)
             .then((e) => {
-                dispatch(closeModalNewTruck());
-                dispatch(PostTruckSuccess(
+                dispatch(PutTruckSuccess(
                     false,
                     'Sucesso',
                     true
                 ));
             })
             .catch((e) => {
-                dispatch(PostTruckError(
+                dispatch(PutTruckError(
                     true,
                     'Erro ao cadastra o caminhão!',
                     false
@@ -25,13 +23,13 @@ export function postTruck(object) {
     };
 }
 
-function PostTruckLoading() {
-    return { type: postTruckTypes.TRUCK_POST_LOADING };
+function PutTruckLoading() {
+    return { type: putTruckTypes.TRUCK_PUT_LOADING };
 }
 
-function PostTruckSuccess(error, message, success, object) {
+function PutTruckSuccess(error, message, success, object) {
     return {
-        type: postTruckTypes.TRUCK_POST_SUCCESS,
+        type: putTruckTypes.TRUCK_PUT_SUCCESS,
         error: error,
         message: message,
         success: success,
@@ -39,9 +37,9 @@ function PostTruckSuccess(error, message, success, object) {
     };
 }
 
-function PostTruckError(error, message, success) {
+function PutTruckError(error, message, success) {
     return {
-        type: postTruckTypes.TRUCK_POST_ERROR,
+        type: putTruckTypes.TRUCK_PUT_ERROR,
         error: error,
         message: message,
         success: success,

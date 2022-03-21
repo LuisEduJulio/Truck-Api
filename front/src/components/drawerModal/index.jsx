@@ -6,7 +6,6 @@ function DrawerModal({ props, open, title }) {
             title={title}
             width={500}
             closable={false}
-            // onClose={this.onChildrenDrawerClose}
             visible={open}
         >
             {props}
